@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>My New Hugo Site</title>
+    <title>jly blog</title>
     <link>https://JLY0226.github.io/</link>
-    <description>Recent content on My New Hugo Site</description>
+    <description>Recent content on jly blog</description>
     <generator>Hugo 0.125.1</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 20 Apr 2024 18:37:58 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 25 Apr 2024 22:35:12 +0800</lastBuildDate>
     <atom:link href="https://JLY0226.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Computer_architecture</title>
+      <link>https://JLY0226.github.io/post/computer_architecture/</link>
+      <pubDate>Thu, 25 Apr 2024 22:35:12 +0800</pubDate>
+      <guid>https://JLY0226.github.io/post/computer_architecture/</guid>
+      <description>1 动态流水线技术的由来 为什么会发明动态流水线？首先我们来了解一下静态流水线的一个弊端，我们都知道简单的静态流水线，它们都是使用顺序指令发射与执行，一旦出现一条指令停顿在流水线中，后续的指令都不能执行，即使后面有些指令不依赖这条阻塞的指令，那也只能乖乖阻塞等待，效率大大降低，所以动态流水线应运而生。 举个简单的例子帮助理解：简单的静态流水线就像是一条单向单车道且无法超车，一旦前面的车出现车祸，那么后面所有的车都被堵住；而动态流水线就像是多车道，如果前面有一辆车出现车祸，其后面无关的车辆可以通过其他车道超车前进。&#xA;2 浅谈指令调度技术 什么叫做指令调度技术呢？指令调度技术的一个前提是不改变程序正确性，通过改变指令的执行次序来避免由于指令相关引起的流水线阻塞。&#xA;* 静态指令调度 由程序猿或者编译器在程序执行==之前==进行的指令调度，那多少有点废程序猿了。 主要的方法有哪些呢？ 1.循环展开——将来自不同迭代的指令放在一起调度，以此来消除数据使用停顿，但是如果代码规模比较大的话，导致cache的命中率会下降，而且可能导致寄存器紧缺。 2.寄存器重命名——可以消除WAW(写后写）和WAR(读后写）相关，但需要更多的寄存器。&#xA;* 动态指令调度 在程序执行==过程中==由==硬件==自动进行的指令调度，这不程序猿就可以早点下班了嘛，下面会具体介绍。&#xA;3 冒险 为什么放在这里介绍冒险呢？对，就是要提醒你一共有3种流水线冒险，其中数据冒险还有3种情况。&#xA;* 结构冒险 其实结构冒险可以先不管，因为不常见。在现代处理器中，结构冒险主要发生在不太常用的特殊用途功能单元（例如浮点除法）。&#xA;* 控制冒险 官方是这么说的：分支指令及其他改变程序计数器的指令实现流水化时可能导致控制冒险。 可能你看的云里雾里，稍微举个例子解释一下，就拿if语句来举例。&#xA;if p1{ s1; // s1控制依赖于p1 } if p2{ s2; // s2控制依赖于p2，但不控制依赖于p1 } 这个例子中，我们不能把s1中的一条指令拿出来移到这个if语句之前，因为s1是控制依赖于p1的；另外我们也不能把s2中的指令移到s1中，因为本来s2就不控制依赖于p1，移动的话就会产生控制依赖。&#xA;* 数据冒险 - RAW(写后读）又称==真相关==——本应该先写后读，但j试图在i写入一个源位置之前读取来该位置的值，则会导致j错误的读取了旧值。 - WAW(写后写) 又称==输出相关==——本应该先i写后j写，但j试图在i写一个操作数之前写这个操作数，也就是写入顺序出错，最后的结果出错。 - WAR(读后写）又称==反相关==——本应该先读后写，但j尝试在i读取一个操作数之前写这个操作数，导致结果出错。 4 动态调度 4.1 思想 动态调度，就是在指令的执行过程中，由硬件自动对指令的执行次序进行调度以避免由于数据相关引起的流水线阻塞。总结就一句话：==前面指令的阻塞不影响后面指令的继续前进。==&#xA;4.2 实现方法 先看一段代码：&#xA;fdiv.d f0 , f2 , f4 //浮点除法 fadd.d f10 , f0 , f8 //浮点加法 fsub.</description>
+    </item>
     <item>
       <title>Readme</title>
       <link>https://JLY0226.github.io/post/readme/</link>
